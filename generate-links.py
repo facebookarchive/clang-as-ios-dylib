@@ -1,8 +1,10 @@
 #!/usr/bin/python
 #
-# Generates symlinks to the clang-as-ios-dylib.py for all the possible
+# Generates symlinks to the clang-as-ios-dylib.py script for all the possible
 # combinations of iOS SDK and IPHONEOS_DEPLOYMENT_TARGET.
 #
+# As more SDKs are released, we'll need to update the `versions` array, re-run
+# the script, and commit the new links.
 
 import os
 
@@ -30,5 +32,4 @@ for sdk_version in versions:
             else:
                 print '%s (creating)' % name
                 os.symlink('../clang-as-ios-dylib.py', name)
-
 

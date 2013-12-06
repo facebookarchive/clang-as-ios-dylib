@@ -1,6 +1,7 @@
 #!/usr/bin/python
 #
-#
+# To make our hack work, we change CC and LD to point at this script, and this
+# script will swap out all the OSX-specific flags for iOS-specific flags.
 #
 
 import glob
