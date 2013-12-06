@@ -1,8 +1,10 @@
-# clang-as-ios-dylib
+## clang-as-ios-dylib
 
-__clang-as-ios-dylib__ is a workaround for building iOS dynamic libraries from Xcode.  Most importantly, it lets Xcode build dylibs without requiring any modifications to the Xcode installation.
+__clang-as-ios-dylib__ is a workaround for building iOS dynamic libraries from Xcode.  Most importantly, it lets Xcode build iOS dylibs without requiring any modifications to the Xcode installation.
 
-_Only iphonesimulator dylibs are supported now, but it should be possible to add device support if you need it._
+It works by tricking Xcode into building an OS X dynamic library as if it were an iOS dynamic library.  By overriding  __CC__ and __LD__, we make Xcode call a wrapper script instead of directly calling __clang__, and our wrapper swaps  the OS X compile flags for iOS flags.
+
+_Only iphonesimulator dylibs are supported now, but it would be possible to add device support if needed._
 
 ## Usage
 
@@ -44,7 +46,7 @@ The other possibility is modifying some of Xcode’s internal configuration file
 
 See:  <http://sumgroup.wikispaces.com/iPhone_Dynamic_Library>
 
-The only downside to this approach is that everyone on your team must also modify their Xcode installation.
+The downside to this approach is that everyone on your team must also modify their Xcode installation.
 
 ## License
 
