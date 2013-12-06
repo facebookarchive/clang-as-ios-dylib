@@ -1,6 +1,8 @@
 # clang-as-ios-dylib
 
-__clang-as-ios-dylib__ is a workaround for building iOS dynamic libraries from Xcode.  
+__clang-as-ios-dylib__ is a workaround for building iOS dynamic libraries from Xcode.  Most importantly, it lets Xcode build dylibs without requiring any modifications to the Xcode installation.
+
+_Only iphonesimulator dylibs are supported now, but it should be possible to add device support if you need it._
 
 ## Usage
 
@@ -35,4 +37,43 @@ curl https://github.com/facebook/clang-as-ios-dylib/archive/master.tar.gz | tar 
 
   * In your __.pch__ file, change `#import <Cocoa/Cocoa.h>` to `#import <Foundation/Foundation.h>`.
   * In your target's __Build Phases__ panel, under __Link Binary With Libraries__, remove __Cocoa.framework__ and add __Foundation.framework__.
+
+## Alternatives
+
+The other possibility is modifying some of Xcode’s internal configuration files so that Xcode understands iOS dylibs again.  Internally, Xcode already knows how to build iOS dylibs - it’s just that Apple strips some configuration items to prevent it.
+
+See:  <http://sumgroup.wikispaces.com/iPhone_Dynamic_Library>
+
+The only downside to this approach is that everyone on your team must also modify their Xcode installation.
+
+## License
+
+```
+Copyright (c) 2013, Facebook, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+  * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+  * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+  * Neither the name Facebook nor the names of its contributors may be used to
+    endorse or promote products derived from this software without specific
+    prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+```
+
 
