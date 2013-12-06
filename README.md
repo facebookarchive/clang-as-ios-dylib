@@ -4,7 +4,17 @@ __clang-as-ios-dylib__ is a workaround for building iOS dynamic libraries from X
 
 ## Usage
 
-1. In Xcode, create a new __OS X Cocoa Library__ project.
+1. Copy the __clang-as-ios-dylib__ code into your repo:
+ 
+  ```sh
+cd Vendor
+mkdir clang-as-ios-dylib
+cd clang-as-ios-dylib
+curl https://github.com/facebook/clang-as-ios-dylib/archive/master.tar.gz | tar zxvf - --strip-components=1
+  ```
+
+
+1. In Xcode, create a new __OS X Cocoa Library__ target.
 
 1. In the project, create a new __Configuration Settings File (.xcconfig)__ file with the following contents:
   ```sh
@@ -19,7 +29,7 @@ __clang-as-ios-dylib__ is a workaround for building iOS dynamic libraries from X
   CC = $(CAID_LINKS_PATH)/cc-iphonesimulator-$(CAID_BASE_SDK_VERSION)-targeting-$(CAID_IPHONEOS_DEPLOYMENT_TARGET)
   ```
 
-1. In your project’s __Info__ settings panel, for each build configuration, select the xcconfig file created in #2.
+1. In your project’s __Info__ settings panel, for each build configuration, select the xcconfig file created in #2 for your target.
 
 1. Change references to __Cocoa.framework__ to __Foundation.framework__:
 
