@@ -29,7 +29,7 @@ def get_developer_dir():
         # This should give us a path that's inside the developer dir, given how
         # Xcode has set our path. e.g. --
         # /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
-        xcodebuild_path = subprocess.check_output(['which', 'xcodebuild']).strip()
+        xcodebuild_path = subprocess.check_output(['/usr/bin/which', 'xcodebuild']).strip()
         usr_bin_path = os.path.dirname(xcodebuild_path)
         return os.path.normpath(os.path.join(usr_bin_path, '..', '..'))
 
