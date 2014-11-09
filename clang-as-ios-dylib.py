@@ -153,21 +153,24 @@ def get_args_for_iphonesimulator_platform(developer_dir, sdk_version, deployment
 
 def parse_sdk_version_and_deployment_target_from_script_name(
         developer_dir, script_name):
+    clang_name = None
     tool = None
     sdk_version_label = None
     deployment_target_label = None
 
-    pattern = re.compile(r'^(cc|ld)-iphonesimulator-(.*?)-targeting-(.*?)$')
+    pattern = re.compile(r'^(?:(clang(?:\+\+)?)-)?(cc|ld)-iphonesimulator-(.*?)-targeting-(.*?)$')
     match = pattern.match(script_name)
 
     if match:
-        tool = match.group(1)
-        sdk_version_label = match.group(2)
-        deployment_target_label = match.group(3)
+        clang_name = match.group(1) or 'clang'
+        tool = match.group(2)
+        sdk_version_label = match.group(3)
+        deployment_target_label = match.group(4)
     else:
         raise Exception(
             'script_name was not formatted as '
-            'TOOL-iphonesimulator-VERSION-targeting-VERSION')
+            'TOOL-iphonesimulator-VERSION-targeting-VERSION or '
+            'CLANG_NAME-TOOL-iphonesimulator-VERSION-targeting-VERSION')
 
     latest_sdk_version = get_latest_iphonesimulator_sdk_version_arch(
         developer_dir, get_arch_from_args())
@@ -185,7 +188,7 @@ def parse_sdk_version_and_deployment_target_from_script_name(
     sdk_version = version_from_label(sdk_version_label)
     deployment_target = version_from_label(deployment_target_label)
 
-    return (tool, sdk_version, deployment_target)
+    return (clang_name, tool, sdk_version, deployment_target)
 
 
 def get_arch_from_args():
@@ -201,7 +204,7 @@ def get_arch_from_args():
 developer_dir = get_developer_dir()
 script_name = os.path.basename(sys.argv[0])
 
-(tool, sdk_version, deployment_target) = \
+(clang_name, tool, sdk_version, deployment_target) = \
     parse_sdk_version_and_deployment_target_from_script_name(
         developer_dir, script_name)
 
@@ -218,6 +221,6 @@ if tool == 'ld':
 
 clang_path = os.path.join(
     developer_dir,
-    'Toolchains/XcodeDefault.xctoolchain/usr/bin/clang')
+    'Toolchains/XcodeDefault.xctoolchain/usr/bin/' + clang_name)
 
 os.execve(clang_path, [clang_path] + new_argv, new_env)
