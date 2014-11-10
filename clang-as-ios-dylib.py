@@ -158,14 +158,14 @@ def parse_sdk_version_and_deployment_target_from_script_name(
     sdk_version_label = None
     deployment_target_label = None
 
-    pattern = re.compile(r'^(?:(clang(?:\+\+)?)-)?(cc|ld)-iphonesimulator-(.*?)-targeting-(.*?)$')
+    pattern = re.compile(r'^(?:(?P<clang_name>clang(?:\+\+)?)-)?(?P<tool>cc|ld)-iphonesimulator-(?P<sdk>.*?)-targeting-(?P<target>.*?)$')
     match = pattern.match(script_name)
 
     if match:
-        clang_name = match.group(1) or 'clang'
-        tool = match.group(2)
-        sdk_version_label = match.group(3)
-        deployment_target_label = match.group(4)
+        clang_name = match.group('clang_name') or 'clang'
+        tool = match.group('tool')
+        sdk_version_label = match.group('sdk')
+        deployment_target_label = match.group('target')
     else:
         raise Exception(
             'script_name was not formatted as '
