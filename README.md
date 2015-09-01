@@ -1,3 +1,9 @@
+## Archived Repo
+
+**This is an archived project and is no longer supported or updated by Facebook. Please do not file issues or pull-requests against this repo. If you wish to continue to develop this code yourself, we recommend you fork it.**
+
+This hack was useful for convincing Xcode to make iOS dynamic libraries in the days of Xcode 5.  With Xcode 6, Apple introduced Frameworks on iOS which are pretty much equivalent to dylibs but with a different packaging structure.  Frameworks should satisfy all use cases for clang-as-ios-dylib.
+
 ## clang-as-ios-dylib
 
 __clang-as-ios-dylib__ is a workaround for building iOS dynamic libraries from Xcode.  Most importantly, it lets Xcode build iOS dylibs without requiring any modifications to the Xcode installation.
